@@ -8,9 +8,12 @@ namespace UI
 {
     public class GameScreen : BaseScreen
     {
+        [SerializeField] private Text distanceText;
         [SerializeField] private Button finishButton;
         [SerializeField] private PressButton gasButton;
         [SerializeField] private PressButton brakeButton;
+        [SerializeField] private Image gasButtonImage;
+        [SerializeField] private Image brakeButtonImage;
         private IMeta _meta;
         private IGame _game;
         private GameConfig _config;
@@ -20,6 +23,7 @@ namespace UI
             _meta = meta;
             _game = game;
             _config = config;
+            distanceText.text = "0";
         }
         
         private void OnEnable()
@@ -36,10 +40,13 @@ namespace UI
             finishButton.onClick.RemoveListener(FinishButtonOnClick);
             gasButton.Press -= OnGasPedalPress;
             brakeButton.Press -= OnBrakePedalPress;
+            gasButton.Release -= OnGasPedalRelease;
+            brakeButton.Release -= OnBrakePedalRelease;
         }
 
         private void Update()
         {
+            distanceText.text = _game.TraversedPath.ToString();
             if (gasButton.Pressed)
             {
                 _game.MoveForward();
@@ -57,23 +64,23 @@ namespace UI
 
         private void OnGasPedalPress()
         {
-            gasButton.image.sprite = _config.GasPedalPressed;
+            gasButtonImage.sprite = _config.GasPedalPressed;
         }
 
         private void OnBrakePedalPress()
         {
-            brakeButton.image.sprite = _config.BrakePedalPressed;
+            brakeButtonImage.sprite = _config.BrakePedalPressed;
         }
 
         private void OnGasPedalRelease()
         {
-            gasButton.image.sprite = _config.GasPedal;
+            gasButtonImage.sprite = _config.GasPedal;
             _game.ReleasePedal();
         }
 
         private void OnBrakePedalRelease()
         {
-            brakeButton.image.sprite = _config.BrakePedal;
+            brakeButtonImage.sprite = _config.BrakePedal;
             _game.ReleasePedal();
         }
     }

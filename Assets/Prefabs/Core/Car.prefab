@@ -459,7 +459,7 @@ WheelJoint2D:
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
-    m_MaximumMotorForce: 10000
+    m_MaximumMotorForce: 5000
 --- !u!235 &2772890447663108619
 WheelJoint2D:
   m_ObjectHideFlags: 0
@@ -483,7 +483,7 @@ WheelJoint2D:
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
-    m_MaximumMotorForce: 10000
+    m_MaximumMotorForce: 5000
 --- !u!114 &2487336014569926468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,8 +497,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rareWheelJoint: {fileID: 2772890447663108619}
-  rearWheelRB: {fileID: 3562029993304184155}
-  driverCollider: {fileID: 0}
+  frontWheelJoint: {fileID: 4352749978417057353}
+  rearWheelRb: {fileID: 3562029993304184155}
+  bodyRb: {fileID: 3562029993663634576}
 --- !u!1 &7964766946832576743
 GameObject:
   m_ObjectHideFlags: 0

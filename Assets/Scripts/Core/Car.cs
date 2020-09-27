@@ -7,13 +7,12 @@ namespace Core
     public class Car : MonoBehaviour
     {
         [SerializeField] private WheelJoint2D rareWheelJoint;
-        [SerializeField] private Rigidbody2D rearWheelRB;
-        [SerializeField] private Collider driverCollider;
+        [SerializeField] private WheelJoint2D frontWheelJoint;
+        [SerializeField] private Rigidbody2D rearWheelRb;
+        [SerializeField] private Rigidbody2D bodyRb;
 
         private GameConfig _config;
-        private bool _raceStarted;
-        private bool _accelerate;
-        private bool _brake;
+
         private JointMotor2D _motor;
 
         public event Action DriverIsDead;
@@ -26,27 +25,16 @@ namespace Core
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if(other.CompareTag($"Road"))
-                DriverIsDead?.Invoke(); 
-        }
-
-        public void StartRace()
-        {
-            _raceStarted = true;
-        }
-
-        public void StopRace()
-        {
-            _raceStarted = false;
+            if (other.CompareTag($"Road"))
+                DriverIsDead?.Invoke();
         }
 
         public void Accelerate()
         {
-            _accelerate = true;
             if (!rareWheelJoint.useMotor)
             {
                 rareWheelJoint.useMotor = true;
-                _motor.motorSpeed = rearWheelRB.angularVelocity;
+                _motor.motorSpeed = rearWheelRb.angularVelocity;
                 rareWheelJoint.motor = _motor;
             }
 
@@ -55,19 +43,32 @@ namespace Core
 
         public void Brake()
         {
-            _brake = true;
-            if (!rareWheelJoint.useMotor)
+            if (bodyRb.velocity.sqrMagnitude > _config.MaxSlowDownSqrSpeed &&
+                Vector3.Angle(bodyRb.velocity, Vector3.right) < 90)
             {
                 rareWheelJoint.useMotor = true;
-                _motor.motorSpeed = rearWheelRB.angularVelocity;
+                _motor.motorSpeed = 0;
                 rareWheelJoint.motor = _motor;
-            }
 
-            ChangeMotorSpeed(_config.DeltaRearSpeed);
+                frontWheelJoint.useMotor = true;
+                _motor.motorSpeed = 0;
+                frontWheelJoint.motor = _motor;
+            }
+            else
+            {
+                rareWheelJoint.useMotor = true;
+
+                _motor.motorSpeed = rearWheelRb.angularVelocity;
+                rareWheelJoint.motor = _motor;
+
+                frontWheelJoint.useMotor = false;
+                ChangeMotorSpeed(_config.DeltaRearSpeed);
+            }
         }
 
         public void ReleasePedal()
         {
+            frontWheelJoint.useMotor = false;
             rareWheelJoint.useMotor = false;
         }
 

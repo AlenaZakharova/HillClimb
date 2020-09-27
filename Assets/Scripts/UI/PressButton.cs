@@ -6,23 +6,23 @@ namespace UI
 {
     public class PressButton : Button
     {
-        public bool Pressed => pressed;
+        public bool Pressed => _pressed;
         public event Action Press;
         public event Action Release;
 
-        private bool pressed;
+        private bool _pressed;
 
         public override void OnPointerDown(PointerEventData eventData)
         {
             base.OnPointerDown(eventData);
-            pressed = true;
+            _pressed = true;
             Press?.Invoke();
         }
 
         public override void OnPointerUp(PointerEventData eventData)
         {
             base.OnPointerUp(eventData);
-            pressed = false;
+            _pressed = false;
             Release?.Invoke();
         }
     }

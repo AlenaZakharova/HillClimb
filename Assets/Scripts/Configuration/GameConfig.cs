@@ -14,9 +14,12 @@ namespace Configuration
         [SerializeField] private Vector3 startPosition;
         [SerializeField] private float deltaForwardSpeed;
         [SerializeField] private float deltaRearSpeed;
+        [SerializeField] private float maxSlowDownSqrSpeed;
+
 
         [Header("GameScreen")] 
         [SerializeField] private Sprite brakePedal;
+
         [SerializeField] private Sprite brakePedalPressed;
         [SerializeField] private Sprite gasPedal;
         [SerializeField] private Sprite gasPedalPressed;
@@ -27,6 +30,7 @@ namespace Configuration
         public Vector3 StartPosition => startPosition;
         public float DeltaForwardSpeed => deltaForwardSpeed;
         public float DeltaRearSpeed => deltaRearSpeed;
+        public float MaxSlowDownSqrSpeed => maxSlowDownSqrSpeed;
 
         public Sprite BrakePedal => brakePedal;
         public Sprite BrakePedalPressed => brakePedalPressed;

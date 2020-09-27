@@ -11,6 +11,10 @@ namespace Core
         private readonly FollowCamera _followCamera;
         private bool _isPlaying;
         private Car _car;
+        private float _traversedPath;
+        private float _startCarPositionX;
+
+        public int TraversedPath => (int)_traversedPath;
 
         public Game(IMeta meta, GameConfig config, FollowCamera followCamera)
         {
@@ -29,6 +33,16 @@ namespace Core
 
             _followCamera.ResetPosition();
             _followCamera.SetTarget(_car.transform);
+
+            _startCarPositionX = _car.transform.position.x;
+            _traversedPath = 0;
+        }
+
+        public void Update()
+        {
+            var currentDistance = _car.transform.position.x - _startCarPositionX;
+            if (currentDistance > _traversedPath)
+                _traversedPath = currentDistance;
         }
 
         private void CleanUp()
@@ -48,8 +62,6 @@ namespace Core
         public void Start()
         {
             _isPlaying = true;
-
-            _car.StartRace();
         }
 
         private void Finish()
