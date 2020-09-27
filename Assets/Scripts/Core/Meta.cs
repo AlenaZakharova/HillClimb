@@ -31,16 +31,11 @@ namespace Core
             var menuScreen = ScreenController.Instance.ShowScreen<MenuScreen>();
             menuScreen.Setup(this);
         }
-
-        private void Update()
-        {
-            _game.Update();
-        }
-
+       
         public void StartGame()
         {
             var gameScreen = ScreenController.Instance.ShowScreen<GameScreen>();
-            gameScreen.Setup(this, config);
+            gameScreen.Setup(this, _game, config);
             _game.Start();
         }
 
@@ -53,7 +48,6 @@ namespace Core
         public void GoToMenu()
         {
             _game.Setup();
-
             var menuScreen = ScreenController.Instance.ShowScreen<MenuScreen>();
             menuScreen.Setup(this);
         }

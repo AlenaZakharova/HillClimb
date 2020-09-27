@@ -12,19 +12,26 @@ namespace Configuration
         [Header("Car")]
         [SerializeField] private Car carPrefab;
         [SerializeField] private Vector3 startPosition;
-        [SerializeField] private float engineForce;
-        [SerializeField] private float brakeForce;
+        [SerializeField] private float deltaForwardSpeed;
+        [SerializeField] private float deltaRearSpeed;
 
-
-        public Car CarPrefab => carPrefab;
-
-        public Vector3 StartPosition => startPosition;
+        [Header("GameScreen")] 
+        [SerializeField] private Sprite brakePedal;
+        [SerializeField] private Sprite brakePedalPressed;
+        [SerializeField] private Sprite gasPedal;
+        [SerializeField] private Sprite gasPedalPressed;
 
         public float SmoothTime => smoothTime;
+        
+        public Car CarPrefab => carPrefab;
+        public Vector3 StartPosition => startPosition;
+        public float DeltaForwardSpeed => deltaForwardSpeed;
+        public float DeltaRearSpeed => deltaRearSpeed;
 
-
-        public float EngineForce => engineForce;
-        public float BrakeForce => brakeForce;
+        public Sprite BrakePedal => brakePedal;
+        public Sprite BrakePedalPressed => brakePedalPressed;
+        public Sprite GasPedal => gasPedal;
+        public Sprite GasPedalPressed => gasPedalPressed;
 
     }
 }

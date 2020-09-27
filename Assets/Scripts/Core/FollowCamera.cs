@@ -9,10 +9,12 @@ namespace Core
         private GameConfig _config;
         private Vector3 _velocity = Vector3.zero;
         private Vector3 _targetOffset;
+        private Vector3 _startPosition;
 
         public void Setup(GameConfig gameConfig)
         {
             _config = gameConfig;
+            _startPosition = transform.position;
         }
 
         private void FixedUpdate()
@@ -27,6 +29,11 @@ namespace Core
         {
             _targetTransform = target;
             _targetOffset = transform.position - _targetTransform.position;
+        }
+
+        public void ResetPosition()
+        {
+            transform.position = _startPosition;
         }
     }
 }

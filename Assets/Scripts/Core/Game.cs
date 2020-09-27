@@ -4,14 +4,14 @@ using Object = UnityEngine.Object;
 
 namespace Core
 {
-    public class Game
+    public class Game : IGame
     {
         private readonly IMeta _meta;
         private readonly GameConfig _config;
         private readonly FollowCamera _followCamera;
         private bool _isPlaying;
         private Car _car;
-   
+
         public Game(IMeta meta, GameConfig config, FollowCamera followCamera)
         {
             _meta = meta;
@@ -21,13 +21,28 @@ namespace Core
 
         public void Setup()
         {
-            if (_car == null)
-            {
-                _car = Object.Instantiate(_config.CarPrefab, _config.StartPosition, Quaternion.identity);
-                _car.Setup(_config);
-            }
+            CleanUp();
 
+            _car = Object.Instantiate(_config.CarPrefab, _config.StartPosition, Quaternion.identity);
+            _car.Setup(_config);
+            _car.DriverIsDead += OnDriverDead;
+
+            _followCamera.ResetPosition();
             _followCamera.SetTarget(_car.transform);
+        }
+
+        private void CleanUp()
+        {
+            if (_car != null)
+            {
+                _car.DriverIsDead -= OnDriverDead;
+                Object.Destroy(_car.gameObject);
+            }
+        }
+
+        private void OnDriverDead()
+        {
+            Finish();
         }
 
         public void Start()
@@ -35,20 +50,27 @@ namespace Core
             _isPlaying = true;
 
             _car.StartRace();
-
         }
 
-        public void Update()
-        {
-        }
-
-       
-        private void FinishGame(bool win)
+        private void Finish()
         {
             _meta.FinishGame();
-
         }
 
-       
+
+        public void MoveForward()
+        {
+            _car.Accelerate();
+        }
+
+        public void MoveBackward()
+        {
+            _car.Brake();
+        }
+
+        public void ReleasePedal()
+        {
+            _car.ReleasePedal();
+        }
     }
 }

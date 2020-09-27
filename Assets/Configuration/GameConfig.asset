@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a571465f71b56642894c036e52e63db, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  cameraStickiness: 0.8
-  cameraRotationStickiness: 0
-  cameraAdditionalVerticalRotation: 0
+  smoothTime: 0
   carPrefab: {fileID: 2487336014569926468, guid: 70372a16092a47448ae1be7f25738df5, type: 3}
   startPosition: {x: -10, y: 0, z: 0}
-  maxVelocitySqr: 0
-  engineForce: 0
-  brakeForce: 0
+  deltaForwardSpeed: 10
+  deltaRearSpeed: 10
+  deltaDeceleration: 3
+  brakePedal: {fileID: 21300000, guid: 14320249e4c633947b602a97b8eb2a75, type: 3}
+  brakePedalPressed: {fileID: 21300000, guid: d1ac9e6aa319aea4b80e92a5a6383a27, type: 3}
+  gasPedal: {fileID: 21300000, guid: 8a066ccdff4a8fa4aaf7addbf751b883, type: 3}
+  gasPedalPressed: {fileID: 21300000, guid: e032ec58fc651f04c9834b851fda1f42, type: 3}
