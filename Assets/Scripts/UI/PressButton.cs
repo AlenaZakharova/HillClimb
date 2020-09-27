@@ -1,10 +1,10 @@
 ﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace UI
 {
-    public class PressButton : Button
+    public class PressButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         public bool Pressed => _pressed;
         public event Action Press;
@@ -12,16 +12,14 @@ namespace UI
 
         private bool _pressed;
 
-        public override void OnPointerDown(PointerEventData eventData)
+        public void OnPointerDown(PointerEventData eventData)
         {
-            base.OnPointerDown(eventData);
             _pressed = true;
             Press?.Invoke();
         }
 
-        public override void OnPointerUp(PointerEventData eventData)
+        public void OnPointerUp(PointerEventData eventData)
         {
-            base.OnPointerUp(eventData);
             _pressed = false;
             Release?.Invoke();
         }
