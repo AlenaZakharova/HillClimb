@@ -13,7 +13,7 @@ namespace UI
 
         public void Setup(IMeta meta)
         {
-            this._meta = meta;
+            _meta = meta;
         }
 
         private void OnEnable()

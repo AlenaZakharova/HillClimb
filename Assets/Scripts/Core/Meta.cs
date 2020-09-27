@@ -37,12 +37,7 @@ namespace Core
             _game.Update();
         }
 
-        private void FixedUpdate()
-        {
-            _game.FixedUpdate();
-        }
-
-       public void StartGame()
+        public void StartGame()
         {
             var gameScreen = ScreenController.Instance.ShowScreen<GameScreen>();
             gameScreen.Setup(this, config);

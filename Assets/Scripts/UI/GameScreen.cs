@@ -14,8 +14,8 @@ namespace UI
 
         public void Setup(IMeta meta, GameConfig config)
         {
-            this._meta = meta;
-            this._config = config;
+            _meta = meta;
+            _config = config;
         }
         
         private void OnEnable()
